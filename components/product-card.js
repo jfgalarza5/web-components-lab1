@@ -6,7 +6,6 @@ class productCard extends HTMLElement {
     this.cantidad = 1;
     this.agregarCarrito = false;
     this.corazon = false;
-    this.puntaje = 1;
   }
 
   static get observedAttributes() {
@@ -50,7 +49,6 @@ class productCard extends HTMLElement {
     const btnQuitarCantidad = shadow.querySelector(".btn-minus");
     const cantidadElement = shadow.querySelector(".qty-count");
     const corazonElement = shadow.querySelector("#corazon");
-    const stars = shadow.querySelectorAll(".star");
     let selectedRating = 0;
 
     btnCarrito.addEventListener("click", () => {
@@ -81,23 +79,11 @@ class productCard extends HTMLElement {
             <?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#f4b400"><path d="M22 8.86222C22 10.4087 21.4062 11.8941 20.3458 12.9929C17.9049 15.523 15.5374 18.1613 13.0053 20.5997C12.4249 21.1505 11.5042 21.1304 10.9488 20.5547L3.65376 12.9929C1.44875 10.7072 1.44875 7.01723 3.65376 4.73157C5.88044 2.42345 9.50794 2.42345 11.7346 4.73157L11.9998 5.00642L12.2648 4.73173C13.3324 3.6245 14.7864 3 16.3053 3C17.8242 3 19.2781 3.62444 20.3458 4.73157C21.4063 5.83045 22 7.31577 22 8.86222Z" stroke="#f4b400" stroke-width="1.5" stroke-linejoin="round"></path></svg>
         `;
     });
-
-    stars.forEach(star => {
-        star.addEventListener("click", (e) => {
-            selectedRating = parseInt(e.target.dataset.index);
-            updateStarDisplay();
-        });
-    });
-
-    const updateStarDisplay = () => {
-        stars.forEach((star, index) => {
-            star.textContent = index < selectedRating ? "★" : "☆";
-        });
-    };
   }
 
   getTemplate() {
     const template = document.createElement("template");
+    const estrellas = "★".repeat(this.puntaje) + "☆".repeat(5 - this.puntaje);
     template.innerHTML = `
     <main class="tarjeta">
         <div class="banner"></div>
@@ -114,7 +100,7 @@ class productCard extends HTMLElement {
             <h2>${this.titulo}</h2>
             <p>${this.desc || ''}</p>
             <div class="estrellas">
-                ${[...Array(5)].map((_, i) => `<span class="star" data-index="${i + 1}">☆</span>`).join('')}
+                ${estrellas}
             </div>
             <div class="price-qty">
                 <strong>$${this.precio}</strong>
@@ -214,7 +200,6 @@ class productCard extends HTMLElement {
         }
     
         .estrellas {
-            cursor: pointer;
             color: #f5a623;
             font-size: 1.5rem;
             margin: 0.5rem 0;

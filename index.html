@@ -8,16 +8,18 @@
     <title>Proyecto</title>
 </head>
 <body>
-    <product-card
-        img="https://vasari.vteximg.com.br/arquivos/ids/210262-1000-1000/MZC175115-BL-30.jpg?v=638035357846670000"
-        titulo="Zapatos Blancos"
-        desc="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur corporis inventore quod quis."
-        precio="190"
+    <product-card style="--primary-color: #00bcd4; --card-radius: 0.5rem;"
         categoria="Deportivos"
         color="#0073ff"
         puntaje="4"
     >
+        <img slot="imagen" src="https://vasari.vteximg.com.br/arquivos/ids/210262-1000-1000/MZC175115-BL-30.jpg" alt="Zapatillas Blancas">
+        <span slot="titulo">Zapatos Blancos</span>
+        <span slot="descripcion">Estas zapatillas te harán volar. Edición limitada.</span>
+        <strong slot="precio">$190</strong>
     </product-card>
+
+
 
     <script src="app.js" type="module"></script>
 </body>
